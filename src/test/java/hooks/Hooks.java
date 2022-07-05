@@ -5,14 +5,15 @@ import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import pages.RegistrationPage;
+import utilities.ConfigurationReader;
 import utilities.Driver;
 
 public class Hooks {
-
+    RegistrationPage registrationPage;
     @Before
     public void setUp(){
-
-
+        Driver.getDriver().get(ConfigurationReader.getProperty("medunna_login_url"));
     }
 
     @After
@@ -23,9 +24,8 @@ public class Hooks {
 
             scenario.attach(screenshot, "image/png","screenshots");
         }
-
-
         Driver.closeDriver();
+
     }
 
 }

@@ -14,6 +14,11 @@ public class PhysicianAppointmentPage {
     @FindBy(xpath = "//table/thead/tr/th")
     public WebElement myAppointmentsTableList;
 
+    @FindBy(xpath = "//input[@id='fromDate']")
+    public WebElement fromDateSlot;
+
+    @FindBy(xpath = "//input[@id='toDate']")
+    public WebElement toDateSlot;
 
 
 }

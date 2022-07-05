@@ -11,7 +11,7 @@ public class AdminHomePage {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    @FindBy(xpath = "//li[@id='entity-menu']")
+    @FindBy(xpath = "//*[.='Items&Titles']")
     public  WebElement itemsAndTitles;
     @FindBy(xpath = "//*[@id=\"entity-menu\"]/div/a[1]")
     public WebElement patientDropDown;

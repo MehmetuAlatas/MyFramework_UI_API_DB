@@ -100,6 +100,24 @@ public class RegistrationPage {
     @FindBy(xpath = "(//label)[7]")
     public WebElement newPasswordConfirmationLabel;
 
+    //US1 Locators
+    @FindBy(xpath = "//a[@class='d-flex align-items-center dropdown-toggle nav-link']")
+    public WebElement homepageDropdown;
+
+    @FindBy(xpath = "(//span[contains(text(),'Register')])[1]")
+    public WebElement registrationLink;
+
+    @FindBy(xpath = "//div[normalize-space()='Your SSN is invalid']")
+    public WebElement invalidSsnMessage;
+
+    @FindBy(xpath = "//div[normalize-space()='Your SSN is required.']")
+    public WebElement blankSsnMessage;
+
+    @FindBy(xpath = "//div[normalize-space()='Your FirstName is required.']")
+    public WebElement blankFirstnameMessage;
+
+    @FindBy(xpath = "//div[normalize-space()='Your LastName is required.']")
+    public WebElement blankLastnameMessage;
 
 
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import pages.DoctorsPage;
 import utilities.ConfigurationReader;
 import utilities.Driver;
+import utilities.JsUtils;
 
 public class US11_StepDefs {
 
@@ -111,7 +112,8 @@ public class US11_StepDefs {
 
     @When("Doctor clicks on Save button")
     public void doctor_clicks_on_save_button() {
-        Driver.waitForClickablility(doctorsPage.saveButton, 10);
+        Driver.waitForClickablility(doctorsPage.saveButton, 13);
+        JsUtils.scrollIntoViewJS(doctorsPage.saveButton);
         Driver.waitAndClick(doctorsPage.saveButton);
 
     }

@@ -1,0 +1,1 @@
+Registrant{ssn='888-57-5384', firstname='Julius', lastname='White', username='osayli3', email='cleo.okuneva@yahoo.com', password='r6tijhi7fgx'}

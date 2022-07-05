@@ -1,6 +1,8 @@
 package stepdefinitions.uistepdefs;
 
 import io.cucumber.java.en.*;
+import org.junit.Assert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import pages.HomePage;
 import pages.LoginPage;
@@ -11,6 +13,7 @@ import utilities.ConfigurationReader;
 import utilities.Driver;
 import utilities.ReusableMethods;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class US10_StepDefs {
@@ -32,7 +35,6 @@ public class US10_StepDefs {
     public void user_navigates_to_sign_in_page() {
         homePage.signInClickIcon.click();
         homePage.signInLink.click();
-
 
     }
 
@@ -74,26 +76,32 @@ public class US10_StepDefs {
 
     @Then("user verifies appointments list")
     public void user_verifies_appointments_list() {
-        List <String> l = ReusableMethods.getElementsText((List<WebElement>) physicianAppointmentPage.myAppointmentsTableList);
-        System.out.println(l);
+        ReusableMethods.waitForVisibility(By.xpath("//*[@class='table']/tbody"), 2);
+        List<WebElement> tableBody = Driver.getDriver().findElements(By.xpath("//*[@class='table']/tbody"));
+        List<String> tableBodyElements = ReusableMethods.getElementsText(tableBody);
+        int tableBodySize = tableBodyElements.size();
+        boolean flag = tableBodySize > 0;
+        Assert.assertTrue(flag);
+
 
     }
-
 
     @Then("user verifies time slots")
     public void user_verifies_time_slots() {
+        Assert.assertTrue(physicianAppointmentPage.fromDateSlot.isDisplayed());
+        Assert.assertTrue(physicianAppointmentPage.toDateSlot.isDisplayed());
 
     }
 
+    @Then("user verifies patient id startdate enddate status")
+    public void user_verifies_patient_id_startdate_enddate_status() {
+        ReusableMethods.waitForVisibility(By.xpath("//*[@class='table']/thead/tr/th"), 2);
+        List<WebElement> tableHead = Driver.getDriver().findElements(By.xpath("//*[@class='table']/thead/tr/th"));
+        List<String> tableHeadText = ReusableMethods.getElementsText(tableHead);
+        List<String> expectedList = Arrays.asList("ID", "Start DateTime", "End DateTime", "Status");
+        Assert.assertTrue(tableHeadText.containsAll(expectedList));
 
-
-
-
-
-
-
-
-
+    }
 
 
 }

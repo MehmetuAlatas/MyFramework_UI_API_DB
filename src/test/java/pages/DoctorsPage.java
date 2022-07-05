@@ -113,4 +113,26 @@ public class DoctorsPage {
     @FindBy(xpath = "//table/thead/tr/th")
     public List<WebElement> testResultsHeadList;
 
+    @FindBy(xpath = "//table/tbody/tr/td[2]")
+    public List<WebElement> testResultsNameList;
+
+    @FindBy(xpath = "//*[contains(text(), 'Request Inpatient')]")
+    public WebElement requestInpatient;
+
+    @FindBy(xpath = "//*[contains(text(), 'A new In Patient is created with identifier')]")
+    public WebElement newRequestSuccessMessage;
+
+    @FindBy(xpath = "//*[contains(text(), 'InPatient request already done for this appointment')]")
+    public WebElement oldRequestSuccessMessage;
+
+    @FindBy(xpath = "//*[contains(text(), 'My Inpatients')]")
+    public WebElement myInpatients;
+
+    @FindBy(xpath = "//table/tbody/tr[last()]/td[8]")
+    public WebElement lastlyAddedmyInpatientsId;
+
+    @FindBy(xpath = "//table/tbody/tr[1]/td[1]")
+    public WebElement firstEditInpatientsId;
+
+
 }
