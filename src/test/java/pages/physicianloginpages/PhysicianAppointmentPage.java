@@ -5,6 +5,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
+import java.util.List;
+
 public class PhysicianAppointmentPage {
 
     public PhysicianAppointmentPage() {
@@ -12,13 +14,18 @@ public class PhysicianAppointmentPage {
     }
 
     @FindBy(xpath = "//table/thead/tr/th")
-    public WebElement myAppointmentsTableList;
+    public List<WebElement> myAppointmentsTableList;
 
     @FindBy(xpath = "//input[@id='fromDate']")
     public WebElement fromDateSlot;
 
     @FindBy(xpath = "//input[@id='toDate']")
     public WebElement toDateSlot;
+
+    @FindBy(xpath = "//a[@class='btn btn-primary btn-sm']")
+    public WebElement appointmentEditButton;
+
+
 
 
 }

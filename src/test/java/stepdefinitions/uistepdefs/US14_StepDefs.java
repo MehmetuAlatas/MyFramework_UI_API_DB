@@ -1,14 +1,15 @@
 package stepdefinitions.uistepdefs;
 
-import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
-import io.cucumber.java.en.When;
+import com.github.javafaker.Faker;
+import io.cucumber.java.en.*;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.UserDefaultPage;
+import pages.physicianloginpages.InPatientEditPage;
 import pages.physicianloginpages.PsInPatientsPage;
 import utilities.ConfigurationReader;
 import utilities.Driver;
@@ -22,12 +23,14 @@ public class US14_StepDefs {
 
     HomePage homePage = new HomePage();
     LoginPage loginPage = new LoginPage();
-    UserDefaultPage userDefaultPage =new UserDefaultPage();
+    UserDefaultPage userDefaultPage = new UserDefaultPage();
+    InPatientEditPage inPatientEditPage = new InPatientEditPage();
     PsInPatientsPage psInPatientsPage = new PsInPatientsPage();
 
 
 
-// Test Case001
+
+// Test Case_001
 
     @Given("doctor is on the Medunna page")
     public void doctor_is_on_the_medunna_page() {
@@ -47,43 +50,51 @@ public class US14_StepDefs {
         loginPage.signInButton.click();
     }
 
-
     @When("clicks on My Pages segment")
     public void clicks_on_my_pages_segment() {
-        ReusableMethods.waitForVisibility(userDefaultPage.myPagesSegment, 3);
+        ReusableMethods.waitForVisibility(userDefaultPage.myPagesSegment, 1);
        userDefaultPage.myPagesSegment.click();
     }
 
     @When("clicks on My Inpatients")
     public void clicks_on_my_inpatients() {
-        ReusableMethods.waitForVisibility(userDefaultPage.myInpatientsSegment,3);
+        ReusableMethods.waitForVisibility(userDefaultPage.myInpatientsSegment,1);
         userDefaultPage.myInpatientsSegment.click();
     }
 
     @Then("verifies ID, Start Date, End Date, Status, Description, Created Date, Room, Appointment and Patient visible")
     public void verifies_id_start_date_end_date_status_description_created_date_room_appointment_and_patient_visible()  {
 
-// First condition: get the all section as list, and assert with your expected list
+//  Check the table body size to see if there is any patient info(I am checking doctor who has patient can see the info)
         ReusableMethods.waitFor(1);
-        List<WebElement> tableHead = Driver.getDriver().findElements(By.xpath("//*[@class='table']/thead/tr/th"));
-        List<String> tableHeadText = ReusableMethods.getElementsText(tableHead);
-        List <String> expectedList = Arrays.asList("ID", "Start Date", "End Date", "Status", "Description", "Created Date","Room", "Appointment", "Patient");
-        Assert.assertTrue(tableHeadText.containsAll(expectedList));
+        int tableBodySize = (psInPatientsPage.tableRowList).size();
 
-//Second Condition: Check the tablebody size to see if there is any patient info(I am checking doctor who has patient can see the info)
-        List<WebElement> tableBody = Driver.getDriver().findElements(By.xpath("//*[@class='table']/tbody/tr"));
-        Assert.assertTrue(tableBody.size() > 0);
+        if((tableBodySize < 1)) {
+            Assert.assertTrue(false);
+            System.out.println("TEST DOES NOT MEET THE PRE-CONDITION: The doctor does not have any inpatients. // TEST CANNOT COMPLETED");
 
-//Third Condition: Check if there are ID for the patients (If there is ID , there is also patient)
-        for(WebElement element : tableBody){
-            String patientId = element.findElements(By.xpath("//tr/td")).get(0).getText();
-            Assert.assertFalse(patientId.isEmpty());
+        }else {
+
+//  First condition: get the all section as list, and assert with your expected lis
+            List<String> tableHeadText = ReusableMethods.getElementsText(psInPatientsPage.tableHeadList);
+            List <String> expectedList = Arrays.asList("ID", "Start Date", "End Date", "Status", "Description", "Created Date","Room", "Appointment", "Patient");
+            Assert.assertTrue(tableHeadText.containsAll(expectedList));
+
+
+//  Second Condition: Check if there are ID for the patients (If there is ID , there is also patient)
+            for(WebElement element : psInPatientsPage.tableRowList){
+                String patientId = element.findElements(By.xpath("//tr/td")).get(0).getText();
+                ReusableMethods.waitFor(1);
+                Assert.assertFalse(patientId.isEmpty());
+            }
         }
     }
 
 
 
-//    Test Case002
+
+
+//  Test Case_002
 
     @When("clicks edit button on Unapproved patients record")
     public void clicks_edit_button_on_Unapproved_patients_record() {
@@ -91,34 +102,82 @@ public class US14_StepDefs {
 
 //  Find index of Status section
         ReusableMethods.waitFor(1);
-        List<WebElement> tableHead = Driver.getDriver().findElements(By.xpath("//*[@class='table']/thead/tr/th"));
-        List<String> tableHeadText = ReusableMethods.getElementsText(tableHead);
+        List<String> tableHeadText = ReusableMethods.getElementsText(psInPatientsPage.tableHeadList);
         int indexOfStatus = tableHeadText.indexOf("Status") + 1;
+        System.out.println(indexOfStatus);
+
 
 //  Find index of Status UNAPPROVED
-        List<WebElement> statusColumn = Driver.getDriver().findElements(By.xpath("//table[@class='table']//tbody//tr//td["+indexOfStatus+"]"));
-        List<String> statusColumnText = ReusableMethods.getElementsText(statusColumn);
+        List<String> statusColumnText = ReusableMethods.getElementsText(psInPatientsPage.tableBodyList.findElements(By.xpath("//tr//td["+indexOfStatus+"]")));
         int indexOfStatusUnapproved = statusColumnText.indexOf("UNAPPROVED") + 1;
 
 
-        if(!statusColumnText.contains("UNAPPROVED")) {
-            System.out.println("TEST CANNOT COMPLETED!  !!! There is not any patient under status UNAPPROVED !!!");
-        } else {
+//  Check if you have any unapproved patient, if not stop the test.
+       if(!statusColumnText.contains("UNAPPROVED")) {
+
+           Assert.assertFalse(statusColumnText.contains("UNAPPROVED"));
+           System.out.println("TEST DOES NOT MEET THE PRE-CONDITION:There is not any patient under status UNAPPROVED // TEST CANNOT COMPLETED");
+
+       } else {
 
 //  Click the edit button whose index same with status UNAPPROVED
-            List<WebElement> editButtonList = Driver.getDriver().findElements(By.xpath("//table[@class='table']//tbody//tr//td[last()]"));
-            editButtonList.get(indexOfStatus).findElement(By.xpath("(//*[text()='Edit'])[" + indexOfStatusUnapproved + "]")).click();
+           Assert.assertTrue(statusColumnText.contains("UNAPPROVED"));
+
+           String editButtonOnUnapprovedPatientXpath = "(//*[text()='Edit'])[" + indexOfStatusUnapproved + "]";
+           psInPatientsPage.editButtonList.get(indexOfStatus).findElement(By.xpath(editButtonOnUnapprovedPatientXpath)).click();
+
         }
+    }
+
+
+    @When("updates Description, Created Date, and Status and Room for Unapproved Patient")
+    public void updates_description_created_date_and_status_and_room_for_unapproved_patient(){
+
+//  Enter info in the description box
+        ReusableMethods.waitForVisibility(inPatientEditPage.descriptionInputBox,1);
+        inPatientEditPage.descriptionInputBox.clear();
+        String description = Faker.instance().medical().diseaseName();
+        inPatientEditPage.descriptionInputBox.sendKeys(description);
+
+//  I need the ID of Unapproved patient, for later verification
+        String idOfUnapproved = inPatientEditPage.idInputInEditPage.getAttribute("value");
+        System.out.println(idOfUnapproved);
+
+
+//  Click Save Button
+        inPatientEditPage.saveButton.click();
+        ReusableMethods.waitForVisibility(psInPatientsPage.successMessageAlert,3);
+        Assert.assertTrue(psInPatientsPage.successMessageAlert.isDisplayed());
+
+
+//   Find index of Status section and description section
+
+        ReusableMethods.waitFor(1);
+        List<String> tableHeadText = ReusableMethods.getElementsText(psInPatientsPage.tableHeadList);
+        System.out.println(tableHeadText);
+        int indexOfStatus = tableHeadText.indexOf("Status") + 1;
+        System.out.println("index of status" + indexOfStatus);
+        int indexOfDescription = tableHeadText.indexOf("Description") + 1;
+        System.out.println("index of description" + indexOfDescription);
+
+        int indexOfId = tableHeadText.indexOf("ID") + 1;
+        System.out.println("index of ID" + indexOfId);
+
+
+ // Find the index of ID whose same with the one we make changes on description
+
+    //  Find index of Status UNAPPROVED
+        List<String> statusColumnText = ReusableMethods.getElementsText(psInPatientsPage.tableBodyList.findElements(By.xpath("//tr//td["+indexOfStatus+"]")));
+        int indexOfStatusUnapproved = statusColumnText.indexOf("UNAPPROVED") + 1;
+
+    //
+        List<String> idColumnText = ReusableMethods.getElementsText(psInPatientsPage.tableBodyList.findElements(By.xpath("//tr//td["+indexOfId+"]")));
+        int indexOfClickedId = idColumnText.indexOf(idOfUnapproved) + 1;
+        System.out.println(indexOfClickedId);
 
     }
 
 
-
-//    @When("updates ID, Start Date, End Date, Status, Description, Created Date, Room, Appointment and Patient")
-//    public void updates_id_start_date_end_date_status_description_created_date_room_appointment_and_patient() {
-//
-//    }
-//
 //    @Then("verifies status can be updated with UNAPPROVED, DISCHARGED,STILL STAYING or CANCELLED")
 //    public void verifies_status_can_be_updated_with_unapproved_discharged_still_staying_or_cancelled() {
 //
@@ -138,7 +197,6 @@ public class US14_StepDefs {
 //    public void verifies_changes_are_reflected_on_the_patient_record() {
 //
 //    }
-
 
 
 

@@ -1,6 +1,6 @@
 package utilities;
 
-import pogos.US01_RegistrantPojo;
+import pojos.US01_RegistrantPojo;
 
 import java.io.*;
 import java.util.List;

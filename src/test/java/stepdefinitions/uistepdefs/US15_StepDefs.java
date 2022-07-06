@@ -56,15 +56,16 @@ public class US15_StepDefs {
     public void admin_enters_all_the_credentials_ssn_first_name_last_name_birth_date_phone_gender_blood_group_address_description_created_date_user_country_and_state() {
         patientNewPage.firstNameBox.sendKeys(faker.name().firstName());
         patientNewPage.lastNameBox.sendKeys(faker.name().lastName());
-        patientNewPage.birthDatePlaceHolder.sendKeys(LocalTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm")));
+        patientNewPage.birthDatePlaceHolder.sendKeys("1995-07-05 12:30");
         patientNewPage.emailBox.sendKeys(faker.internet().emailAddress());
-        patientNewPage.phoneBox.sendKeys(faker.phoneNumber().toString());
+        patientNewPage.phoneBox.sendKeys("518-230-4587");
         patientNewPage.genderDropDown.sendKeys("FEMALE");
         patientNewPage.bloodGroupDropDown.sendKeys("A-");
         patientNewPage.adressBox.sendKeys(faker.address().streetAddress());
         patientNewPage.descriptionBox.sendKeys("Patient create automated test");
         patientNewPage.userDropDown.click();
         patientNewPage.countryUSA.click();
+        ReusableMethods.waitFor(2);
         patientNewPage.stateCA.click();
     }
     @Then("Then click on save button")
@@ -73,7 +74,9 @@ public class US15_StepDefs {
     }
     @Then("Verify new patient created pop up")
     public void verify_new_patient_created_pop_up() {
-        Assert.assertTrue(patientPage.createAlert.getText().contains("A new patient is created"));
+        ReusableMethods.waitForVisibility(patientPage.createAlert,3);
+        System.out.println(patientPage.createAlert.getText());
+        Assert.assertTrue(patientPage.createAlert.isDisplayed());
     }
 
 

@@ -1,0 +1,1 @@
+US02_User_Registration_Pojo{email='rudolf.kertzmann@hotmail.com', firstName='ali', id=0, langKey='null', lastName='desidero', login='parker.witting', ssn='558-34-5572'}

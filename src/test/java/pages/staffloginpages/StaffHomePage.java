@@ -5,13 +5,14 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
-public class SearchPatientPage {
-    public SearchPatientPage() {
+public class StaffHomePage {
+    public StaffHomePage() {
         PageFactory.initElements(Driver.getDriver(), this);
     }
 
-    @FindBy(name = "ssn")
-    public WebElement ssnBox;
-    @FindBy(xpath = "(//*[text()='Edit'])[11]")
-    public WebElement editButton;
+    @FindBy(xpath = "//span[text()='MY PAGES']")
+    public WebElement myPagesLink;
+    @FindBy(xpath = "//span[text()='Search Patient']")
+    public WebElement searchPatientLink;
+
 }

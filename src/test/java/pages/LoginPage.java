@@ -36,8 +36,29 @@ public class LoginPage {
     @FindBy(xpath = "//a[@href='/account/reset/request']")
     public WebElement forgetPasswordButton;
 
+    @FindBy(xpath = " //*[@id='login-page']/div/form/div[2]/div[4]/span/span")
+    public WebElement isAccountExistYetText;
+
+    @FindBy(xpath = "(//*[@href='/account/register'])[2]")
+    public WebElement  registerNewAccountButton;
+
     @FindBy(xpath = "//button[@type='submit']")
     public WebElement signInButton;
+
+    @FindBy(xpath = "//*[text()='Cancel']")
+    public WebElement cancelButton;
+
+    @FindBy(xpath = "//*[@id='account-menu']/a/span")
+    public WebElement userProfile;
+
+    @FindBy(xpath = "//*[@id='account-menu']/div/a[1]")
+    public WebElement dropdownSettings;
+
+    @FindBy(xpath = "//*[@id='account-menu']/div/a[2]")
+    public WebElement dropdownPassword;
+
+    @FindBy(xpath = "//*[@id='account-menu']/div/a[3]")
+    public WebElement dropdownSignOut;
 
 
 }

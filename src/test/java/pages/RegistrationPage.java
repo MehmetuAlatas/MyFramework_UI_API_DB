@@ -15,6 +15,9 @@ public class RegistrationPage {
     @FindBy(xpath = "//li[@id='account-menu']")
     public WebElement accountMenu;
 
+    @FindBy(xpath = "//h1[@id='register-title']")
+    public WebElement registrationTitle;
+
     @FindBy(xpath = "//*[text()='Register']")
     public WebElement registerMenu;
 

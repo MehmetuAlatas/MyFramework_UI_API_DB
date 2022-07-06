@@ -6,24 +6,25 @@ import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 import pages.HomePage;
 import pages.LoginPage;
 import pages.adminloginpages.AdminHomePage;
 import pages.adminloginpages.PatientEditPage;
 import pages.adminloginpages.PatientPage;
+import pages.adminloginpages.PatientPageSortIdPage;
 import utilities.ConfigurationReader;
 import utilities.Driver;
 import utilities.JsUtils;
 import utilities.ReusableMethods;
 
-public class US09_StepDefs {
+public class US09_StepDefs_Admin {
     HomePage homePage = new HomePage();
     LoginPage loginPage = new LoginPage();
     AdminHomePage adminHomePage = new AdminHomePage();
     PatientPage patientPage = new PatientPage();
     PatientEditPage patientEditPage = new PatientEditPage();
+    PatientPageSortIdPage patientPageSortIdPage = new PatientPageSortIdPage();
 
     //US09_TC001
 
@@ -64,8 +65,9 @@ public class US09_StepDefs {
 
     @Then("Admin clicks on ID")
     public void admin_clicks_on_id() {
-        ReusableMethods.waitForVisibility(patientPage.patientID, 3);
-        JsUtils.clickElementByJS(Driver.getDriver().findElement(By.xpath("//*[contains(text(),'107902')]")));
+        //ReusableMethods.waitForVisibility(Driver.getDriver().findElement(By.xpath("//*[contains(text(),'107939')]")), 3);
+        ReusableMethods.waitFor(2);
+        JsUtils.clickElementByJS(Driver.getDriver().findElement(By.xpath("//*[contains(text(),'107939')]")));
     }
     @Then("Admin clicks on Edit Button")
     public void admin_clicks_on_edit_button() {
@@ -83,6 +85,7 @@ public class US09_StepDefs {
     }
     @Then("Admin edits lastname")
     public void admin_edits_lastname() {
+
         patientEditPage.lastName.sendKeys(Keys.chord(Keys.CONTROL, "a"), "Uwu");
     }
 
@@ -110,6 +113,7 @@ public class US09_StepDefs {
     }
     @Then("Admin edits phone")
     public void admin_edits_phone() {
+
         patientEditPage.phone.sendKeys(Keys.chord(Keys.CONTROL, "a"), "6869653333");
     }
     @Then("Admin edits gender")
@@ -146,30 +150,38 @@ public class US09_StepDefs {
         Select select = new Select(dropdown);
         select.selectByValue("73994");
     }
-    @Then("Admin edits state-city")
-    public void admin_edits_state_city() {
-        WebElement dropdown = patientEditPage.cstate;
-        Select select = new Select(dropdown);
-        select.selectByIndex(1);
-    }
-    @Then("Admin verifies A Patient is updated with identifier <patient Id> message")
-    public void admin_verifies_a_patient_is_updated_with_identifier_patient_id_message() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+//    @Then("Admin edits state-city")
+//    public void admin_edits_state_city() {
+//        WebElement dropdown = patientEditPage.cstate;
+//        Select select = new Select(dropdown);
+//        select.selectByIndex(1);
+//    }
+    @Then("Admin clicks on Save Button")
+    public void admin_clicks_on_save_button() {
+        ReusableMethods.waitFor(2);
+        JsUtils.clickElementByJS(patientEditPage.saveButton);
     }
 
-    //US09_TC002
+    @Then("Admin verifies A Patient is updated with identifier <patient Id> message")
+    public void admin_verifies_a_patient_is_updated_with_identifier_patient_id_message() {
+        ReusableMethods.waitForVisibility(patientEditPage.alertText, 1);
+        String actualText = patientEditPage.alertText.getText();
+        String expectedText = "A Patient is updated with identifier 107939";
+        Assert.assertEquals(actualText,expectedText);
+        Assert.assertTrue(patientEditPage.alertText.isDisplayed());
+    }
+
+    //@TC02_Admin_Delete_Patient
 
     @Then("Admin clicks on Delete Button")
     public void admin_clicks_on_delete_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        ReusableMethods.waitForVisibility(patientPageSortIdPage.deleteButton, 3);
+        JsUtils.clickElementByJS(patientPageSortIdPage.deleteButton);
     }
 
     @Then("Admin clicks on pop ups delete button")
     public void admin_clicks_on_pop_ups_delete_button() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        patientPageSortIdPage.popUpDelete.click();
     }
 
     @Then("Admin verifies A Patient is deleted with identifier <patient Id> message")
@@ -177,6 +189,14 @@ public class US09_StepDefs {
         // Write code here that turns the phrase above into concrete actions
         throw new io.cucumber.java.PendingException();
     }
+
+    //@TC03_Admin_Verify_NoSearch
+
+    @Then("Admin verifies that there is no search patient section")
+    public void admin_verifies_that_there_is_no_search_patient_section() {
+
+    }
+
 
 
 }

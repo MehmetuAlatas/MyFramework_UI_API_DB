@@ -6,7 +6,7 @@ import io.cucumber.java.en.Then;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.Assert;
-import pogos.US01_RegistrantPojo;
+import pojos.US01_RegistrantPojo;
 import utilities.WriteToTxt;
 
 import java.util.List;

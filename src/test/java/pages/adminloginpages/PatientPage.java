@@ -6,12 +6,16 @@ import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
 public class PatientPage {
-    @FindBy(xpath = "//*[text()=107902]")
+    public PatientPage() {
+        PageFactory.initElements(Driver.getDriver(), this);
+    }
+
+    @FindBy(xpath = "//*[text()=107939]")
     public WebElement patientID;
 
     @FindBy(xpath = "//*[@id='jh-create-entity']")
     public WebElement createNewPatient;
-    @FindBy(xpath = "//*[@id=\"root\"]/div/div/div[1]/div/div/div[2]")
+    @FindBy(xpath = "//div[@role='alert']")
     public WebElement createAlert;
 
     @FindBy(id = "patient-heading")
@@ -21,8 +25,6 @@ public class PatientPage {
     @FindBy(xpath = "//*[text()='Edit']")
     public WebElement editButton;
 
-    public PatientPage() {
-        PageFactory.initElements(Driver.getDriver(), this);
-    }
+
 
 }

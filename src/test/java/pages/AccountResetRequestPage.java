@@ -19,4 +19,14 @@ public class AccountResetRequestPage {
 
     @FindBy(xpath = "//div[@class='Toastify__toast-container Toastify__toast-container--top-left toastify-container']")
     public WebElement greenLabelMessage;
+
+    @FindBy(xpath = "//*[text()='Your email is required.']")
+    public WebElement emailRequirementText;
+
+    @FindBy(xpath = "//*[text()='Your email is required to be at least 5 characters.']")
+    public WebElement emailRequiredCharText;
+
+    @FindBy(xpath = "//*[text()='This field is invalid']")
+    public WebElement emailInvalidText;
+
 }
