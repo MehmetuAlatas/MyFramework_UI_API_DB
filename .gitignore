@@ -3,3 +3,5 @@
 target
 .DS_Store
 test-output
+src/test/resources/testdata
+src/test/java/pages
