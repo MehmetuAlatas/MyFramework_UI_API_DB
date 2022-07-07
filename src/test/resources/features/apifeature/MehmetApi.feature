@@ -1,5 +1,6 @@
 Feature: Test Api registrant data
 
+  @Api
   @mehmetapi
   Scenario: getApi mehmet
 

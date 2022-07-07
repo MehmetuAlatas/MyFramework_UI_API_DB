@@ -11,6 +11,7 @@ import utilities.ConfigurationReader;
 
 
 import static io.restassured.RestAssured.*;
+import static utilities.Authentication.generateToken;
 import static utilities.MehmetWriter.savingUiRegistrant;
 
 public class MehmetApiStepDefs {
@@ -21,7 +22,7 @@ public class MehmetApiStepDefs {
     @Given("user sends a get request for users data")
     public void user_sends_a_get_request_for_users_data() {
         response = given().headers(
-                        "Authorization", "Bearer " + ConfigurationReader.getProperty("mehmet_token"),
+                        "Authorization", "Bearer " + generateToken(),
                         "Content-Type", ContentType.JSON,
                         "Accept", ContentType.JSON).
                 when().get(ConfigurationReader.getProperty("mehmet_registrant_endpoint"));
