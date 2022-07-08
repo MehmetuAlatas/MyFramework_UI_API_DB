@@ -29,11 +29,11 @@ public class Authentication {
                 post("/{first}/{second}");
 
         response.prettyPeek();
-
+        response.prettyPrint();
+        System.out.println("response.toString() = " + response.toString());
         JsonPath json = response.jsonPath();
 
         return json.getString("id_token");
-
 
     }
 }
