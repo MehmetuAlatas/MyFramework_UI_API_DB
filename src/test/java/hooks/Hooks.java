@@ -4,6 +4,7 @@ import com.sun.tools.jxc.ConfigReader;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
+
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 import org.openqa.selenium.OutputType;
@@ -19,14 +20,13 @@ public class Hooks {
     @Before(value = "@Api")
     public void baseUrlSetUp() {
         spec = new RequestSpecBuilder().setBaseUri(ConfigurationReader.getProperty("base_url")).build();
-
     }
 
 
-    @Before
-    public void setUp() {
-        Driver.getDriver().get(ConfigurationReader.getProperty("medunna_login_url"));
-    }
+//    @Before
+//    public void setUp() {
+//        Driver.getDriver().get(ConfigurationReader.getProperty("medunna_login_url"));
+//    }
 
 
     @After

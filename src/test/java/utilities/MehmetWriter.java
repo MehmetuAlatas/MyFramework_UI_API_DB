@@ -1,6 +1,7 @@
 package utilities;
 
 import pojos.MehmetPojo;
+import pojos.US01_RegistrantPojo;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -44,6 +45,25 @@ public class MehmetWriter {
                 }
                 bw.close();
             } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void savingApiRegistrant(US01_RegistrantPojo us01_registrantPojo) {
+
+        FileWriter fileWriter;
+
+        {
+            try {
+                fileWriter = new FileWriter(ConfigurationReader.getProperty("mehmet_registrant"), true);
+                //this is for file creation
+
+                BufferedWriter bw = new BufferedWriter(fileWriter);
+                    bw.append(us01_registrantPojo.toString()+"\n");
+                bw.close();
+                }
+             catch (IOException e) {
                 e.printStackTrace();
             }
         }
