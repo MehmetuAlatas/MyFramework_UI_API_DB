@@ -7,3 +7,4 @@ MehmetPojo{firstName='Lily', lastName='Hermiston', ssn='010-26-8032', login='bam
 MehmetPojo{firstName='Jasper', lastName='O'Reilly', ssn='307-33-6579', login='lewis.bartoletti', langKey='null', password='R%3k$bjr', email='lucas.ryan@yahoo.com', id=null, activated=null, authorities=null}
 MehmetPojo{firstName='Tammera', lastName='Johns', ssn='561-06-2317', login='etta.koelpin', langKey='null', password='3hyZs&9Pt1V&', email='scot.pagac@gmail.com', id=null, activated=null, authorities=null}
 Registrant{ssn='562-67-5420', firstname='Micaela', lastname='Grimes', username='osayli3', email='starr.padberg@hotmail.com', password='boa12mdutlqysx0'}
+Registrant{ssn='426-88-0277', firstname='Jovita', lastname='Crooks', username='osayli3', email='john.orn@gmail.com', password='ryjxuycrut'}
