@@ -37,9 +37,9 @@ public class MehmetApiStepDefs {
     MehmetPojo[] mehmetPojos;
     US01_RegistrantPojo data;
     MehmetMessages mehmetMessages;
-    MehmetMessages [] mehmetMessageses;
+    MehmetMessages[] mehmetMessageses;
     PatientsBody patientsBody;
-    PatientsBody [] patientsBodies;
+    PatientsBody[] patientsBodies;
 
 
     @Given("user sends a get request for users data")
@@ -62,11 +62,11 @@ public class MehmetApiStepDefs {
 
         mehmetPojos = obj.readValue(response.asString(), MehmetPojo[].class);
         System.out.println("mehmetPojos.length = " + mehmetPojos.length);
-        boolean flag=false;
-        for (int i = 0; i <mehmetPojos.length ; i++) {
-           // System.out.println(mehmetPojos [i].getFirstName() +" "+mehmetPojos[i].getLastName());
-            if("147-25-0613".contains(mehmetPojos[i].getSsn())){
-                flag=true;
+        boolean flag = false;
+        for (int i = 0; i < mehmetPojos.length; i++) {
+            // System.out.println(mehmetPojos [i].getFirstName() +" "+mehmetPojos[i].getLastName());
+            if ("147-25-0613".contains(mehmetPojos[i].getSsn())) {
+                flag = true;
             }
         }
         Assert.assertTrue(flag);
@@ -84,23 +84,24 @@ public class MehmetApiStepDefs {
 
     @Given("user sends a post request for create a new user")
     public void user_sends_a_put_request_for_update_the_user() {
-       //set the url
-        spec.pathParams("first","api","second","register");
+        //set the url
+        spec.pathParams("first", "api", "second", "register");
         //set the expected data
 
-       Faker faker=new Faker();
-        int id=faker.number().randomDigit();
-        String login=faker.name().username();
-        String ssn=faker.idNumber().ssnValid();
-        String fistName=faker.name().firstName();
-        String lastName=faker.name().lastName();
-        String email=faker.internet().emailAddress();
-        String password=faker.internet().password();
-         data=new US01_RegistrantPojo(12,login, true,"","","",
-                "",ssn,fistName,lastName,"osayli3",
-                email,password);
+        Faker faker = new Faker();
+        int id = faker.number().randomDigit();
+        String login = faker.name().username();
+        String ssn = faker.idNumber().ssnValid();
+        String fistName = faker.name().firstName();
+        String lastName = faker.name().lastName();
+        String email = faker.internet().emailAddress();
+        String password = faker.internet().password();
+        data = new US01_RegistrantPojo(12, login, true, "", "", "",
+                "", ssn, fistName, lastName, "osayli3",
+                email, password);
 
     }
+
     @Given("user deserializes the response to java")
     public void user_deserializes_the_response_to_java() {
         //send the request and get the response
@@ -109,12 +110,12 @@ public class MehmetApiStepDefs {
 
         //response.prettyPeek();
         //do validation
-        US01_RegistrantPojo actual =  response.as(US01_RegistrantPojo.class);
-        Assert.assertEquals(data.getLangKey(),actual.getLangKey());
-        Assert.assertEquals(data.getFirstName(),actual.getFirstName());
-        Assert.assertEquals(data.getLastName(),actual.getLastName());
-        Assert.assertEquals(data.getSsn(),actual.getSsn());
-        Assert.assertEquals(data.getEmail(),actual.getEmail());
+        US01_RegistrantPojo actual = response.as(US01_RegistrantPojo.class);
+        Assert.assertEquals(data.getLangKey(), actual.getLangKey());
+        Assert.assertEquals(data.getFirstName(), actual.getFirstName());
+        Assert.assertEquals(data.getLastName(), actual.getLastName());
+        Assert.assertEquals(data.getSsn(), actual.getSsn());
+        Assert.assertEquals(data.getEmail(), actual.getEmail());
     }
 
     @Then("user saves the users data to correspondent files")
@@ -127,71 +128,84 @@ public class MehmetApiStepDefs {
 
         response.then().assertThat().statusCode(200).contentType(ContentType.JSON)
                 .body("id", hasSize(6464),
-                        "firstName",hasItem("ali"),
-                        "id",hasItems(34657, 34658, 114215));
+                        "firstName", hasItem("ali"),
+                        "id", hasItems(34657, 34658, 114215));
 
     }
 
 
     @Given("user sends a get request for messages")
     public void user_sends_a_get_request_for_messages() {
-    spec.pathParams("1","api","2","c-messages").
-            queryParams("size","200");
+        spec.pathParams("1", "api", "2", "c-messages").
+                queryParams("size", "200");
 
-      response=given().headers(
-              "Authorization",
-              "Bearer " + generateToken(),
-              "Content-Type", ContentType.JSON,
-              "Accept", ContentType.JSON).spec(spec).when().get("/{1}/{2}");
-      //response.prettyPeek();
+        response = given().headers(
+                "Authorization",
+                "Bearer " + generateToken(),
+                "Content-Type", ContentType.JSON,
+                "Accept", ContentType.JSON).spec(spec).when().get("/{1}/{2}");
+        //response.prettyPeek();
     }
+
     @Then("user deserializes the response to java for messages")
     public void user_deserializes_the_response_to_java_for_messages() {
         mehmetMessageses = response.as(MehmetMessages[].class);
         System.out.println("mehmetMessageses.length = " + mehmetMessageses.length);
 
-        for (int i = 0; i <mehmetMessageses.length ; i++) {
-            if(mehmetMessageses[i].getName().toLowerCase().contains("ugur")){
+        for (int i = 0; i < mehmetMessageses.length; i++) {
+            if (mehmetMessageses[i].getName().toLowerCase().contains("ugur")) {
                 System.out.println("mehmetMessageses[i].getName().toString() = " + mehmetMessageses[i].getMessage().toString());
             }
         }
     }
+
     @Then("user manipulate the messages and does assertion")
     public void user_manipulate_the_messages_and_does_assertion() {
         response.then().assertThat().statusCode(200).
-        body("id",hasItems(83534,83533));
+                body("id", hasItems(83534, 83533));
         Assert.assertTrue(response.asString().contains("id"));
 
         JsonPath json = response.jsonPath();
-        List<String > ids=json.getList("findAll{it.id>83500}.message");
+        List<String> ids = json.getList("findAll{it.id>83500}.message");
         System.out.println("mua ==> " + ids);
 
     }
+
     @Given("user sends a get request for patients info")
     public void user_sends_a_get_request_for_patients_info() {
-       spec.pathParams("1","api","2","patients");
-       response=given().headers(
-               "Authorization",
-               "Bearer " + generateToken(),
-               "Content-Type", ContentType.JSON,
-               "Accept", ContentType.JSON).spec(spec).when().get("/{1}/{2}");
-       JsonPath jsonPath=response.jsonPath();
-       response.prettyPeek();
-       List<Integer>list=jsonPath.getList("id");
+        spec.pathParams("1", "api", "2", "patients");
+        response = given().headers(
+                "Authorization",
+                "Bearer " + generateToken(),
+                "Content-Type", ContentType.JSON,
+                "Accept", ContentType.JSON).spec(spec).when().get("/{1}/{2}");
+        JsonPath jsonPath = response.jsonPath();
+        response.prettyPeek();
+        List<Integer> list = jsonPath.getList("id");
         System.out.println("list = " + list);
 
-
     }
+
     @Then("user deserializes the response to java for patients info")
     public void user_deserializes_the_response_to_java_for_patients_info() {
-       PatientsBody[] patientsBodies = response.as(PatientsBody[].class);
-        for (int i = 0; i <patientsBodies.length ; i++) {
+        PatientsBody[] patientsBodies = response.as(PatientsBody[].class);
+        for (int i = 0; i < patientsBodies.length; i++) {
             System.out.println("patientsBodies= " + patientsBodies[i].toString());
         }
-
         System.out.println("patientsBodies[1].getCstate().getCountry().getId() = " + patientsBodies[1].getCstate().getCountry().getId());
-
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
