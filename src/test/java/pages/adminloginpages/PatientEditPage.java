@@ -33,9 +33,13 @@ public class PatientEditPage {
 
     @FindBy(xpath = "//*[text()='Save']")
     public WebElement saveButton;
+    @FindBy(xpath = "//span[normalize-space()='ID']")
+    public WebElement idText;
 
     @FindBy(xpath = "//div[@role='alert']")
     public WebElement alertText;
+    @FindBy(xpath = "//h3[normalize-space()='Medunna']")
+    public WebElement medunnaTextForScrollInto;
 
     public PatientEditPage() {
 

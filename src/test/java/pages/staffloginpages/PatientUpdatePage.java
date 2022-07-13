@@ -33,8 +33,9 @@ public class PatientUpdatePage {
     public WebElement country;
     @FindBy(xpath = "//*[@id='patient-cstate']")
     public WebElement cstate;
-
     @FindBy(xpath = "//*[text()='Save']")
     public WebElement saveButton;
+    @FindBy(xpath = "//div[@role='alert']")
+    public WebElement alertText;
 
 }

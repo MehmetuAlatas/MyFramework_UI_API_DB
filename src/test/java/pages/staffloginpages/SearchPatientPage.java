@@ -12,6 +12,6 @@ public class SearchPatientPage {
 
     @FindBy(name = "ssn")
     public WebElement ssnBox;
-    @FindBy(xpath = "(//*[text()='Edit'])[11]")
+    @FindBy(xpath = "(//*[text()='Edit'])[12]")
     public WebElement editButton;
 }

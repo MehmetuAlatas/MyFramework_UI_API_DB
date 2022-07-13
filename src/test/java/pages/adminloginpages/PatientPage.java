@@ -24,6 +24,17 @@ public class PatientPage {
     public WebElement lastPage;
     @FindBy(xpath = "//*[text()='Edit']")
     public WebElement editButton;
+    @FindBy(xpath = "(//span[contains(text(),'Edit')])[1]")
+    public WebElement editButtonFirstIndex;
+    @FindBy(xpath = "//div[@role='alert']" )
+    public WebElement alert;
+    @FindBy(xpath = "//span[normalize-space()='Created Date']")
+    public WebElement createdDateForGetLatestPatient;
+    @FindBy(xpath = "(//span[contains(text(),'Delete')])[1]")
+    public WebElement deleteButtonFirstIndex;
+    @FindBy(xpath = "//button[@id='jhi-confirm-delete-patient']//span[contains(text(),'Delete')]")
+    public WebElement deleteButtonOnPopUpWindow;
+
 
 
 

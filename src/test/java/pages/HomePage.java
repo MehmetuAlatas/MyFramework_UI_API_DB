@@ -5,6 +5,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utilities.Driver;
 
+import java.util.List;
+
 public class HomePage {
 
     public HomePage(){
@@ -21,4 +23,9 @@ public class HomePage {
     @FindBy(xpath = "//a[@href='/account/register']")
     public WebElement registerLink;
 
+    @FindBy(xpath = "//*[@class='btn-get-started scrollto']")
+    public WebElement getStarted;
+
+    @FindBy(xpath = "//div[@id='app-header']//li//a//span")
+    public List<WebElement> homePageMenuHeadersList;
 }

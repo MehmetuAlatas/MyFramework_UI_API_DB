@@ -30,6 +30,11 @@ public class AccountSettingsPage {
     @FindBy(xpath = "//*[@id='email']")
     public WebElement userEmail;
 
+    @FindBy(xpath = "//*[@id='settings-form']/button")
+    public WebElement saveButton;
+
+    @FindBy(xpath = "//*[@id='root']/div/div/div[1]/div/div/div[1]/span")
+    public WebElement settingsSavedAlert;
 
 
 }

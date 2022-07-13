@@ -25,6 +25,12 @@ public class PhysicianAppointmentPage {
     @FindBy(xpath = "//a[@class='btn btn-primary btn-sm']")
     public WebElement appointmentEditButton;
 
+    @FindBy(xpath = "(//table[@class='table']//tbody//tr//td[last()])[1]")
+    public WebElement editButton;
+
+    @FindBy(xpath = "//a[@class='btn btn-success btn-sm']")
+    public WebElement requestATestButton;
+
 
 
 

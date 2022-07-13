@@ -18,7 +18,7 @@ public class PsInPatientsPage {
     }
 
     @FindBy(xpath = " //*[contains(text(),'The In Patient is updated with identifier')]")
-    public WebElement successMessageAlert;
+    public WebElement upadateMessageAlert;
 
     @FindBy(xpath = "//*[@class='table']/thead/tr/th")
     public List<WebElement> tableHeadList;
@@ -34,6 +34,7 @@ public class PsInPatientsPage {
 
     @FindBy(xpath = "//table[@class='table']//tbody//tr")
     public List<WebElement> tableRowList;
+
 
 
 
