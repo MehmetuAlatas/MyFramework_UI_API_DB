@@ -28,7 +28,6 @@ public class Hooks {
 //        Driver.getDriver().get(ConfigurationReader.getProperty("medunna_login_url"));
 //    }
 
-
     @After
     public void tearDown(Scenario scenario) {
 
@@ -38,8 +37,13 @@ public class Hooks {
             scenario.attach(screenshot, "image/png", "screenshots");
         }
 
-
         Driver.closeDriver();
     }
+
+
+
+
+
+
 
 }
