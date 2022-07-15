@@ -173,42 +173,101 @@ public class MehmetApiStepDefs {
 
     @Given("user sends a get request for patients info")
     public void user_sends_a_get_request_for_patients_info() {
-        spec.pathParams("1", "api", "2", "patients");
+        spec.pathParams("1", "api", "2", "patients").
+                queryParams("size", "3000");
+
         response = given().headers(
                 "Authorization",
                 "Bearer " + generateToken(),
                 "Content-Type", ContentType.JSON,
                 "Accept", ContentType.JSON).spec(spec).when().get("/{1}/{2}");
-        JsonPath jsonPath = response.jsonPath();
         response.prettyPeek();
-        List<Integer> list = jsonPath.getList("id");
-        System.out.println("list = " + list);
+
+        response.then().assertThat().statusCode(200).body("id", hasItem(121291),
+                "user.id", hasItem(3302),
+                "cstate.country.id", hasItem(1202));
+        JsonPath jsonPath = response.jsonPath();
+//        List<Integer> idlist = jsonPath.getList("user.findAll{it.firstName='tekin'}");
+//        System.out.println(idlist);
+
+
+        List<String> userLogin = jsonPath.getList("user.login");
+        System.out.println(userLogin);
+        for (String w :userLogin ) {
+            if (w.contains("mustafatekin")){
+                System.out.println(w);
+                break;
+            }
+        }
+
+
+/**{
+ "createdBy": "anonymousUser",
+ "createdDate": "2021-12-16T16:34:24.652207Z",
+ "id": 2551,
+ "firstName": "Doctor",
+ "lastName": "Doctor",
+ "birthDate": null,
+ "phone": "222-333-2322",
+ "gender": "MALE",
+ "bloodGroup": "ABnegative",
+ "adress": null,
+ "email": "doctor@email.com",
+ "description": null,
+ "user": {
+ "createdBy": "anonymousUser",
+ "createdDate": "2021-12-14T10:38:26.705059Z",
+ "id": 2001,
+ "login": "doctor",
+ "firstName": "Doctor",
+ "lastName": "Doctor",
+ "email": "doctore@email.com",
+ "activated": true,
+ "langKey": "en",
+ "imageUrl": null,
+ "resetDate": null,
+ "ssn": "234-55-3432"
+ },
+ "appointments": null,
+ "inPatients": null,
+ "country": {
+ "id": 1201,
+ "name": "Türkye"
+ },
+ "cstate": {
+ "id": 1262,
+ "name": "Hawaii",
+ "country": {
+ "id": 1201,
+ "name": "Türkye"
+ }
+ }
+ }
+ *
+ */
+
+
+//        spec.pathParams("1", "api", "2", "patients");
+//        response = given().headers(
+//                "Authorization",
+//                "Bearer " + generateToken(),
+//                "Content-Type", ContentType.JSON,
+//                "Accept", ContentType.JSON).spec(spec).when().get("/{1}/{2}");
+//        JsonPath jsonPath = response.jsonPath();
+//        response.prettyPeek();
+//        List<Integer> list = jsonPath.getList("id");
+//        System.out.println("list = " + list);
 
     }
 
     @Then("user deserializes the response to java for patients info")
     public void user_deserializes_the_response_to_java_for_patients_info() {
-        PatientsBody[] patientsBodies = response.as(PatientsBody[].class);
-        for (int i = 0; i < patientsBodies.length; i++) {
-            System.out.println("patientsBodies= " + patientsBodies[i].toString());
-        }
-        System.out.println("patientsBodies[1].getCstate().getCountry().getId() = " + patientsBodies[1].getCstate().getCountry().getId());
+//        PatientsBody[] patientsBodies = response.as(PatientsBody[].class);
+//        for (int i = 0; i < patientsBodies.length; i++) {
+//            System.out.println("patientsBodies= " + patientsBodies[i].toString());
+//        }
+//        System.out.println("patientsBodies[1].getCstate().getCountry().getId() = " + patientsBodies[1].getCstate().getCountry().getId());
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
