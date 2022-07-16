@@ -12,7 +12,7 @@ Feature:US11_My_Appointments_Edit_portal_by_Physician
     And Doctor verifies patient's info
     And id, start and end date, status, physician are present
 
-  @TC01
+  @TC01 @smoke
   Scenario:TC01
 
     And Doctor fills in required fields, anemnesis, treatment, diagnosis
@@ -20,7 +20,7 @@ Feature:US11_My_Appointments_Edit_portal_by_Physician
     And Verify appointment is saved successfully
     And close the browser
 
-  @TC02
+  @TC02 @regression
   Scenario Outline:TC02_04_05
 
     And Doctor selects and verify status as "<status>" from dropdown can selectable
@@ -33,7 +33,7 @@ Feature:US11_My_Appointments_Edit_portal_by_Physician
       | PENDING   |
 
 
-  @TC03
+  @TC03 @regression
   Scenario:TC03
 
     And Doctor selects status as UNAPPROVED from dropdown
