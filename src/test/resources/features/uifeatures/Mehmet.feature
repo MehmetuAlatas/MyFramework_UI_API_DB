@@ -1,10 +1,11 @@
+@NewApplicant
 Feature: Test Registrant Data
 
   Background: set_up
     Given  user navigates to Medunna url
     And user navigates the registration page
 
-  @NewApplicant
+
   Scenario Outline: Test new applicants
 
     Given user provides their ssn id as "<ssn>"

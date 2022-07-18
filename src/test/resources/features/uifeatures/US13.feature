@@ -1,4 +1,4 @@
-@US13
+@US13 @smoke
 Feature:US13_My_Appointments_Edit_portal_by_Physician
 
   Background:
@@ -10,7 +10,7 @@ Feature:US13_My_Appointments_Edit_portal_by_Physician
     And clicks on My appointments
     And Doctor clicks on First Patient Edit button
 
-  @US13_TC01 @smoke
+  @US13_TC01
   Scenario:TC01
 
     And Doctor clicks on Show Test Results button
@@ -18,7 +18,7 @@ Feature:US13_My_Appointments_Edit_portal_by_Physician
     And Verify Test results of Urea, Sodium and Diabetes Medicine
     And close the browser
 
-  @US13_TC02 @regression
+  @US13_TC02
   Scenario:TC02
 
     And Doctor clicks on request Inpatient button
