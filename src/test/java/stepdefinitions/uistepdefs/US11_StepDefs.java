@@ -111,7 +111,6 @@ public class US11_StepDefs extends GridWebDriver {
 
     @When("Doctor clicks on Save button")
     public void doctor_clicks_on_save_button() {
-
         JsUtils.scrollIntoViewJS(doctorsPage.saveButton);
         doctorsPage.saveButton.click();
 
@@ -122,7 +121,6 @@ public class US11_StepDefs extends GridWebDriver {
 
         String message = doctorsPage.succesfullysaved.getText();
         System.out.println("message = " + message);
-
         Assert.assertTrue(doctorsPage.succesfullysaved.isDisplayed());
 
     }
@@ -154,8 +152,6 @@ public class US11_StepDefs extends GridWebDriver {
         doctorsPage.anamnesis.clear();
         doctorsPage.treatment.clear();
         doctorsPage.diagnosis.clear();
-
-
     }
 
     @When("Doctor verifies This field is required message")
@@ -175,8 +171,6 @@ public class US11_StepDefs extends GridWebDriver {
         Select select = new Select(doctorsPage.statusDropDown);
         select.selectByVisibleText(status);
         Assert.assertTrue(select.getFirstSelectedOption().getText().contains(status));
-
-
     }
 
     @When("Doctor leaves blank precription and description")
@@ -185,9 +179,19 @@ public class US11_StepDefs extends GridWebDriver {
         doctorsPage.description.clear();
     }
 
+
+
+
+
+
     @When("close the browser")
     public void close_the_browser() {
         Driver.closeDriver();
     }
+
+
+
+
+
 
 }
