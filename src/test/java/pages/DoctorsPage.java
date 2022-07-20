@@ -134,5 +134,40 @@ public class DoctorsPage {
     @FindBy(xpath = "//table/tbody/tr[1]/td[1]")
     public WebElement firstEditInpatientsId;
 
+    @FindBy(xpath = "//*[contains(text(), 'Items&Titles')]")
+    public WebElement itemsTitles;
+
+    @FindBy(xpath = "(//*[contains(text(), 'Room')])[1]")
+    public WebElement Room;
+
+    @FindBy(xpath = "//*[contains(text(), 'Create a new Room')]")
+    public WebElement createAnewRoom;
+
+    @FindBy(xpath = "//*[@id= 'room-roomNumber']")
+    public WebElement roomNumber;
+
+    @FindBy(xpath = "//*[@id= 'room-price']")
+    public WebElement price;
+
+    @FindBy(xpath = "//*[contains(text(), 'Save')]")
+    public WebElement roomSaveButton;
+
+    @FindBy(xpath = "//*[contains(text(), 'A new Room is created with identifier')]")
+    public WebElement roomCreationSuccesMessage;
+
+    @FindBy(xpath = "(//*[contains(text(), 'This field is required.')])[1]")
+    public WebElement roomRequiredMessage;
+
+    @FindBy(xpath = "(//*[contains(text(), 'This field is required.')])[2]")
+    public WebElement priceRequiredMessage;
+
+    @FindBy(xpath = "//*[@id='room-createdDate']")
+    public WebElement createDate;
+
+    @FindBy(xpath = "//*[contains(text(), 'Created Date')]")
+    public WebElement createDateTitle;
+
+
+
 
 }
