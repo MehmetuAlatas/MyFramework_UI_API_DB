@@ -167,6 +167,25 @@ public class DoctorsPage {
     @FindBy(xpath = "//*[contains(text(), 'Created Date')]")
     public WebElement createDateTitle;
 
+    @FindBy(xpath = "//*[@id='room-roomType']")
+    public WebElement roomTypeDropdown;
+
+    @FindBy(xpath = "//table/tbody/tr[1]/td[7]")
+    public WebElement lastCreatedDate;
+
+    @FindBy(xpath = "//table/tbody/tr[1]/td[8]/div/a[2]")
+    public WebElement firstEditRoom;
+
+    @FindBy(xpath = "//*[contains(text(), 'A Room is updated with identifier')]")
+    public WebElement roomUpdateMessage;
+
+    @FindBy(xpath = "//table/tbody/tr[1]/td[8]/div/a[3]")
+    public WebElement firstDeleteRoom;
+
+    //*[@id='jhi-confirm-delete-room']
+    @FindBy(xpath = "//*[@id='jhi-confirm-delete-room']")
+    public WebElement deletePopUp;
+
 
 
 
