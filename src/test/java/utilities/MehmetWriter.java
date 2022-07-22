@@ -1,6 +1,7 @@
 package utilities;
 
 import pojos.MehmetPojo;
+import pojos.Room;
 import pojos.US01_RegistrantPojo;
 
 import java.io.BufferedWriter;
@@ -64,6 +65,24 @@ public class MehmetWriter {
                 bw.close();
                 }
              catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public static void savingRoomNumber(int roomnumber) {
+
+        FileWriter fileWriter;
+
+        {
+            try {
+                fileWriter = new FileWriter(ConfigurationReader.getProperty("rooms"), true);
+                //this is for file creation
+                BufferedWriter bw = new BufferedWriter(fileWriter);
+                bw.append(roomnumber+"\n");
+                bw.close();
+            }
+            catch (IOException e) {
                 e.printStackTrace();
             }
         }

@@ -18,18 +18,16 @@ public class Room {
 
   private String createdBy;
   private String createdDate;
-  private int id;
   private int roomNumber;
+  private int id;
   private String roomType;
   private boolean status;
-  private double price;
-  private int priceint;
+  private int price;
   private String description;
 
-    public Room(String createdBy, String createdDate, int id, int roomNumber, String roomType, boolean status, double price, String description) {
+    public Room(String createdBy, String createdDate,String description, int price, int roomNumber, String roomType, boolean status ) {
         this.createdBy = createdBy;
         this.createdDate = createdDate;
-        this.id = id;
         this.roomNumber = roomNumber;
         this.roomType = roomType;
         this.status = status;
@@ -37,14 +35,14 @@ public class Room {
         this.description = description;
     }
 
-    public Room(String createdBy, String createdDate, int id, int roomNumber, String roomType, boolean status, int priceint, String description) {
+    public Room(String createdBy, String createdDate, int roomNumber, int id, String roomType, boolean status, int price, String description) {
         this.createdBy = createdBy;
         this.createdDate = createdDate;
-        this.id = id;
         this.roomNumber = roomNumber;
+        this.id = id;
         this.roomType = roomType;
         this.status = status;
-        this.priceint = priceint;
+        this.price = price;
         this.description = description;
     }
 
@@ -65,14 +63,6 @@ public class Room {
 
     public void setCreatedDate(String createdDate) {
         this.createdDate = createdDate;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public int getRoomNumber() {
@@ -99,20 +89,12 @@ public class Room {
         this.status = status;
     }
 
-    public double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(int price) {
         this.price = price;
-    }
-
-    public int getPriceint() {
-        return priceint;
-    }
-
-    public void setPriceint(int priceint) {
-        this.priceint = priceint;
     }
 
     public String getDescription() {
@@ -123,16 +105,5 @@ public class Room {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Room{" +
-                "createdBy='" + createdBy + '\'' +
-                ", createdDate='" + createdDate + '\'' +
-                ", id=" + id +
-                ", roomNumber=" + roomNumber +
-                ", roomType='" + roomType + '\'' +
-                ", status=" + status +
-                ", description='" + description + '\'' +
-                '}';
-    }
+
 }

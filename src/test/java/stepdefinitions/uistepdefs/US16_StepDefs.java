@@ -102,7 +102,9 @@ public class US16_StepDefs {
         String rooomnumber = String.valueOf(faker.number().numberBetween(3137316,3139999));
         Driver.waitAndSendText(doctorsPage.roomNumber, rooomnumber);
         Driver.waitAndSendText(doctorsPage.price, "313");
-        Driver.waitForClickablility(doctorsPage.roomSaveButton, 7);
+        Driver.wait(1);
+        actions.moveToElement(doctorsPage.roomSaveButton).perform();
+        Driver.wait(1);
         JsUtils.clickElementByJS(doctorsPage.roomSaveButton);
 
     }
@@ -204,7 +206,11 @@ public class US16_StepDefs {
 
     @Given("Admin clicks on first Delete button")
     public void admin_clicks_on_first_delete_button() {
+        Driver.wait(3);
+        Driver.waitForClickablility(doctorsPage.createDateTitle, 7);
+        actions.click(doctorsPage.createDateTitle).perform();
         Driver.waitForClickablility(doctorsPage.firstDeleteRoom, 7);
+        Driver.wait(2);
         JsUtils.clickElementByJS(doctorsPage.firstDeleteRoom);
     }
 
@@ -217,9 +223,9 @@ public class US16_StepDefs {
 
     @Given("Admin verify Delete Succes message")
     public void admin_verify_delete_succes_message() {
-        Assert.assertTrue(doctorsPage.succesfullysaved.isDisplayed());
-// ınternal server error alındığından manuel olarak ta silinemediği için locati hiç alınamadı
 
+        Driver.wait(1);
+        Assert.assertTrue(doctorsPage.roomdeleteMessage.isDisplayed());
     }
 
 }

@@ -186,7 +186,6 @@ public class DoctorsPage {
     @FindBy(xpath = "//*[@id='jhi-confirm-delete-room']")
     public WebElement deletePopUp;
 
-
-
-
+    @FindBy(xpath = "//*[contains(text(), 'A Room is deleted with identifier')]")
+    public WebElement roomdeleteMessage;
 }
