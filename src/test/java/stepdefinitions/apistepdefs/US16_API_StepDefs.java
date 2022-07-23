@@ -163,5 +163,18 @@ public class US16_API_StepDefs {
                 when().delete(ConfigurationReader.getProperty("getRoomEndpoint") + "/" + int1);
         response.prettyPeek();
     }
+    /**given()
+     .accept("application/json")
+     .when()
+     .get("/employees")
+     .then()
+     .assertThat().statusCode(200)
+     .and()
+     .assertThat().contentType("application/json")
+     .log().ifError()
+     .log().all(true)
+     *
+     */
+
 
 }
