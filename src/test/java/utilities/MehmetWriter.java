@@ -70,7 +70,7 @@ public class MehmetWriter {
         }
     }
 
-    public static void savingRoomNumber(int roomnumber) {
+    public static void savingRoomId(int roomId) {
 
         FileWriter fileWriter;
 
@@ -79,7 +79,7 @@ public class MehmetWriter {
                 fileWriter = new FileWriter(ConfigurationReader.getProperty("rooms"), true);
                 //this is for file creation
                 BufferedWriter bw = new BufferedWriter(fileWriter);
-                bw.append(roomnumber+"\n");
+                bw.append(roomId+"\n");
                 bw.close();
             }
             catch (IOException e) {

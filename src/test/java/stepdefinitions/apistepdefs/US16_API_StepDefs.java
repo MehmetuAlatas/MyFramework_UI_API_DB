@@ -6,6 +6,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.restassured.http.ContentType;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Assert;
@@ -25,7 +26,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasItem;
 import static utilities.Authentication.generateToken;
 import static utilities.MehmetWriter.*;
-import static utilities.MehmetWriter.savingRoomNumber;
+
 
 public class US16_API_StepDefs {
     Response response;
@@ -44,8 +45,9 @@ public class US16_API_StepDefs {
     }
 
     @Given("user deserializes the room data with {int} id to java")
-    public void user_deserializes_the_room_data_with_id_to_java(Integer int1) {
-        Room actualroom = response.as(Room.class);
+    public void user_deserializes_the_room_data_with_id_to_java(Integer int1) throws IOException {
+        ObjectMapper obj = new ObjectMapper();
+        Room actualroom = obj.readValue(response.asString(), Room.class);
         System.out.println("actualroom = " + actualroom);
     }
 
@@ -75,7 +77,7 @@ public class US16_API_StepDefs {
 
         createdRoom = new Room(createdBy, createdDate, description, price, roomNumber, roomType, true);
         System.out.println("createdRoom = " + createdRoom);
-        savingRoomNumber(createdRoom.getRoomNumber());
+
     }
 
     @Given("user sends a post request for room")
@@ -103,14 +105,18 @@ public class US16_API_StepDefs {
         Assert.assertEquals(createdRoom.getRoomNumber(), actual.getRoomNumber());
         Assert.assertEquals(createdRoom.isStatus(), actual.isStatus());
 
+        JsonPath json = response.jsonPath();
+        System.out.println("json.getString = " + json.getString("id"));
+        savingRoomId(Integer.parseInt(json.getString("id")));
+
     }
 
     @Given("user set the roomdata for updating")
     public void user_set_the_roomdata_for_updating() throws IOException {
         List<String> rooms = Files.lines(Paths.get(ConfigurationReader.getProperty("rooms"))).collect(Collectors.toList());
         System.out.println("rooms = " + rooms);
-        //int roomNumber = Integer.parseInt(rooms.get(0));
-        int roomNumber = 13311331;
+        Faker faker = new Faker();
+        int roomNumber = faker.number().numberBetween(3137317, 999999999);
         int price = 313;
         int id = 132298;
         String createdBy = "mhmtapiautomation";
@@ -153,7 +159,10 @@ public class US16_API_StepDefs {
     }
 
     @Given("user sends a delete request for room with {int} id")
-    public void user_sends_a_delete_request_for_room_with_id(Integer int1) {
+    public void user_sends_a_delete_request_for_room_with_id(Integer int1) throws IOException {
+        List<String> rooms = Files.lines(Paths.get(ConfigurationReader.getProperty("rooms"))).collect(Collectors.toList());
+        int1 = Integer.parseInt(rooms.get(rooms.size()-1));
+        System.out.println("deletedint1 = " + int1);
         response = given().headers(
                         "Authorization",
                         "Bearer " + generateToken(),
